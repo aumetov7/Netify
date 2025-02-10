@@ -11,7 +11,7 @@ import Logify
 public final class NetifyImpl: Netify, NetifyStreaming {
     private let session: URLSession
     
-    let log = Logify(logLevel: .debug)
+    let log: Logify?
     
     private let jsonDecoder: JSONDecoder
     private let jsonEncoder: JSONEncoder
@@ -24,11 +24,13 @@ public final class NetifyImpl: Netify, NetifyStreaming {
     public init(
         session: URLSession,
         jsonDecoder: JSONDecoder = .defaultDecoder,
-        jsonEncoder: JSONEncoder = .defaultEncoder
+        jsonEncoder: JSONEncoder = .defaultEncoder,
+        log: Logify? = nil
     ) {
         self.session = session
         self.jsonDecoder = jsonDecoder
         self.jsonEncoder = jsonEncoder
+        self.log = log
     }
     
     public func performRequest<T: Decodable>(
@@ -44,11 +46,11 @@ public final class NetifyImpl: Netify, NetifyStreaming {
             request.httpBody = try jsonEncoder.encode(body)
         }
         
-        log.logRequest(request)
+        log?.logRequest(request)
         
         do {
             let (data, response) = try await session.data(for: request)
-            log.logResponse(response, data: data)
+            log?.logResponse(response, data: data)
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 throw NetworkError.unknown(statusCode: -1)
@@ -186,6 +188,6 @@ private extension NetifyImpl {
         }
         
         let fullMessage = "\(message). \(url). Status Code: \(response.statusCode)"
-        log.log(level, category: category, fullMessage)
+        log?.log(level, category: category, fullMessage)
     }
 }

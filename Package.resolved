@@ -1,13 +1,13 @@
 {
-  "originHash" : "f5e1b80e45eb7e4d7f144c6887a7ca23b20027de0ff788ae2f8194d6793002ae",
+  "originHash" : "1e64063cb59d2771010ff7bfd8980205ee517dc5d7dad03008ce3d0796f131a8",
   "pins" : [
     {
       "identity" : "logify",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/aumetov7/Logify.git",
       "state" : {
-        "revision" : "b1d49f0c56f12b4bf3e87b35918bf589bdefafa6",
-        "version" : "1.0.0"
+        "revision" : "38d5f0669f99ad4d340f30277b07d972e3404e3b",
+        "version" : "1.0.1"
       }
     }
   ],
